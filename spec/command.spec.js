@@ -9,9 +9,9 @@ describe("Command class", function() {
     expect( function() { new Command();}).toThrow(new Error("Command type required."));
   });       
   it("constructor sets command type", function() {
-    Command.constructor.commandType;    //I have no clue why this worked
+    expect(Command.commandType);
   });
   it("constructor sets a value passed in as the 2nd argument", function() {
-    Command.constructor.value
+    expect(Command.value);
   });
   });
