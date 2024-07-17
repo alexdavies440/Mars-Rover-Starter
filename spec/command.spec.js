@@ -12,7 +12,6 @@ describe("Command class", function() {
     Command.constructor.commandType;    //I have no clue why this worked
   });
   it("constructor sets a value passed in as the 2nd argument", function() {
-    Command.constructor();            // I have no clue why this worked
+    Command.constructor.value
   });
-
-});
+  });
