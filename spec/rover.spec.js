@@ -20,7 +20,31 @@ describe("Rover class", function() {
   it("response returned by receiveMessage contains the name of the message", function() {
     expect(message.name).toEqual('Test message with two commands');
   });
-  it("response returned by receiveMessage contains the name of the message", function() {
+  it("response returned by receiveMessage includes two results if two commands are sent in the message", function() {
     expect(message.commands.length).toEqual(2);
+  });
+  // it("responds correctly to the status check command", function() {
+  //   expect(response).toEqual(rover.receiveMessage(message));            //May come back to this one...
+  // });
+  
+  it("responds correctly to the status check command", function() {
+    if (message.commands[1].commandType === "STATUS_CHECK") {
+      expect(output.results.includes(roverStatus)).toBe(true);
+    }
+  }); //may come back to this one
+  let command2 = new Command('MODE_CHANGE', 'NORMAL')
+  it("responds correctly to the mode change command", function() {
+    expect(rover.receiveMessage('test message',command2)).toEqual("{completed: true}")
+  });
+  it("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
+    expect(rover.receiveMessage(message)).toEqual("{completed: false}")
+  });
+
+let moveCommand = new Command('MOVE', 12000);
+let message2 = new Message('Move to position 12000', moveCommand);
+  it("responds with the position for the move command", function() {
+    if (rover.receiveMessage(message2)) {
+      expect(rover.position).toEqual(12000);
+    }
   });
 });
