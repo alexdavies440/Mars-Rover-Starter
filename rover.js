@@ -7,30 +7,34 @@ class Rover {
       this.generatorWatts = 110;
       this.position = position;
    }
-   receiveMessage(message) {
-      let returnMessage = message.name;
-      let results = [];
-      let roverStatus = new Rover();
-      let response = {};
-      response.returnMessage = returnMessage;
-         if ('STATUS_CHECK') {  //for some reaon this is not finding this true
-            results.completed = true;
-            results.roverStatus = roverStatus;
-         }
-      response.results = results;
+   receiveMessage(messageInput) {
+     let message = messageInput.name;
+     let action = {completed: false}
+     let results = [];
+     let response = {}
+
+     for (let i = 0; i < messageInput.commands.length; i++) {
+      if (messageInput.commands[i].commandType === 'MOVE' && this.mode !== 'LOW_POWER') {
+         this.position = messageInput.commands[i].value;
+         action.completed = true 
+         results.push(action)
+      }
+      else if (messageInput.commands[i].commandType === 'MOVE' && this.mode == 'LOW_POWER') {
+         action.completed = false; 
+         results.push(action)
+      }
+     }
+
+     response.message = message;
+     response.results = results;
       return response;
    }
 }
-let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
-  let message = new Message('Test message with two commands', commands);
-  let rover = new Rover(98382);    // Passes 98382 as the rover's position.
-  let response = rover.receiveMessage(message);
-
-  let command3 = [new Command('STATUS_CHECK')]
-  let message3 = new Message('check status', command3)
-
-  console.log(rover.receiveMessage(message3));
-
+//let commands = 
+let message = new Message('a message', [new Command('STATUS_CHECK'), new Command('MOVE', 888)])
+let test = new Rover(123);
+console.log(test.receiveMessage(message));
+//console.log(test)
 
 //IN CASE I END UP NEEDING THIS...
 
