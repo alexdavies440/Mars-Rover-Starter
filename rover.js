@@ -10,6 +10,7 @@ class Rover {
    receiveMessage(messageInput) {
      let message = messageInput.name;
      let action = {completed: false}
+     let roverStatus = {};
      let results = [];
      let response = {}
 
@@ -30,6 +31,14 @@ class Rover {
          action.completed = true; 
          results.push(action)
       }
+      else if (messageInput.commands[i].commandType === 'STATUS_CHECK') {
+         roverStatus.mode = this.mode;
+         roverStatus.generatorWatts = this.generatorWatts;
+         roverStatus.position = this.position;
+         action.completed = true; 
+         results.push(action)
+         results.roverStatus = roverStatus;
+      }
      }
 
      response.message = message;
@@ -38,8 +47,8 @@ class Rover {
    }
 }
 //let commands = 
-let message = new Message('a message', [new Command('MODE_CHANGE'), new Command('MOVE', 888)])
-let message2 = new Message('a message', [new Command('MODE_CHANGE'), new Command('MOVE', 888)])
+let message = new Message('a message', [new Command('STATUS_CHECK'), new Command('MOVE', 888)])
+let message2 = new Message('a message', [new Command('STATUS_CHECK'), new Command('MOVE', 555)])
 let test = new Rover(123);
 console.log(test.receiveMessage(message));
 console.log(test.receiveMessage(message2))
