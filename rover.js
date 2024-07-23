@@ -23,6 +23,13 @@ class Rover {
          action.completed = false; 
          results.push(action)
       }
+      else if (messageInput.commands[i].commandType === 'MODE_CHANGE') {
+         let modes = ['NORMAL', 'LOW_POWER'];
+         let dichotamy = (modes.indexOf(this.mode) + 3) % 2
+         this.mode = modes[dichotamy]
+         action.completed = true; 
+         results.push(action)
+      }
      }
 
      response.message = message;
@@ -31,9 +38,11 @@ class Rover {
    }
 }
 //let commands = 
-let message = new Message('a message', [new Command('STATUS_CHECK'), new Command('MOVE', 888)])
+let message = new Message('a message', [new Command('MODE_CHANGE'), new Command('MOVE', 888)])
+let message2 = new Message('a message', [new Command('MODE_CHANGE'), new Command('MOVE', 888)])
 let test = new Rover(123);
 console.log(test.receiveMessage(message));
+console.log(test.receiveMessage(message2))
 //console.log(test)
 
 //IN CASE I END UP NEEDING THIS...
