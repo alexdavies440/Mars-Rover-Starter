@@ -18,18 +18,19 @@ describe("Rover class", function() {
     expect(rover.generatorWatts).toEqual(110);
   });
   it("response returned by receiveMessage contains the name of the message", function() {
-    expect(message.name).toEqual('Test message with two commands');
+    expect(rover.receiveMessage(message).memo).toEqual('Test message with two commands'); 
   });
   it("response returned by receiveMessage includes two results if two commands are sent in the message", function() {
-    expect(message.commands.length).toEqual(2);
+    expect(rover.receiveMessage(message).results.length).toEqual(2); 
   });
   // it("responds correctly to the status check command", function() {
   //   expect(response).toEqual(rover.receiveMessage(message));            //May come back to this one...
   // });
-  
+  let command3 = [new Command('STATUS_CHECK')]
+  let message3 = new Message('check status', command3)
   it("responds correctly to the status check command", function() {
-    if (message.commands[1].commandType === "STATUS_CHECK") {
-      expect(output.results.includes(roverStatus)).toBe(true);
+    if (message3.commands.commandType === "STATUS_CHECK") {
+      expect(rover.receiveMessage(message3)).toBe({completed: true, roverStatus: {mode: 'NORMAL', generatorWatts: 110, position: 98382}});
     }
   }); //may come back to this one
   let command2 = new Command('MODE_CHANGE', 'NORMAL')
