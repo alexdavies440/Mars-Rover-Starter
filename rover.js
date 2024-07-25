@@ -45,7 +45,6 @@ class Rover {
       message: messageInput.name,
       results: results
      };
-   
      return response;
    }
 }
