@@ -7,7 +7,7 @@ class Rover {
       this.generatorWatts = 110;
       this.position = position;
    }
-   receiveMessage(messageInput) {
+   receiveMessage(messageInput) { //Parameter name change to avoid confusion with response.message and Message class
 
       let results = [];
 

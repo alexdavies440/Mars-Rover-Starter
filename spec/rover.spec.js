@@ -8,7 +8,7 @@ const Command = require('../command.js');
 
 describe("Rover class", function() {
 
-  //EXAMPLES TO PULL FROM 
+  //EXAMPLES TO PULL FROM:
   let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
   let message = new Message('Test message with two commands', commands);
   let rover = new Rover(98382);    // Passes 98382 as the rover's position.
@@ -39,8 +39,8 @@ describe("Rover class", function() {
     // let command = [new Command('MODE_CHANGE', 'SPOOKEY_TIME')];
     // let message2 = new Message('Change mode for Halloween', command);
     // response = rover.receiveMessage(message2);
-
     // expect(rover.mode).toEqual('SPOOKEY_TIME');
+
     expect(rover.mode).toEqual('LOW_POWER')
   });
   // TEST 12
