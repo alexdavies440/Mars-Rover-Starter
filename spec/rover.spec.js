@@ -15,35 +15,39 @@ describe("Rover class", function() {
   let response = rover.receiveMessage(message);
 
   
-  // TEST 1
+  // TEST 7
   it("constructor sets position and default values for mode and generatorWatts", function() {
     expect(rover.position).toEqual(98382);
     expect(rover.generatorWatts).toEqual(110);
   });
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SEE WHAT COMPILER SEES:
-  return console.log(rover.receiveMessage(message).results.actionResult[roverStatus])
 
-  // TEST 2
+  //return console.log(response.results.actionResult)
+
+  // TEST 8
   it("response returned by receiveMessage contains the name of the message", function() {
     expect(rover.receiveMessage(message).message).toEqual('Test message with two commands'); 
   });
-  // TEST 3
+  // TEST 9
   it("response returned by receiveMessage includes two results if two commands are sent in the message", function() {
     expect(rover.receiveMessage(message).results.length).toEqual(2); 
   });
-  // TEST 4
+  // TEST 10
   it("responds correctly to the status check command", function() {
-    expect(rover.receiveMessage(message).results.roverStatus).toEqual({mode: 'LOW POWER', generatorWatts: 110, position: 98382})
+    expect(response.results[1]).toEqual({
+      completed: true, 
+      roverStatus: { mode: 'LOW_POWER', generatorWatts: 110, position: 98382 }
+   })
   }); 
-  // TEST 5
+  // TEST 11
   it("responds correctly to the mode change command", function() {
   
   });
-  // TEST 6
+  // TEST 12
   it("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
     
   });
-  // TEST 7
+  // TEST 13
   it("responds with the position for the move command", function() {
       
   });
