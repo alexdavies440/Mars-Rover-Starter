@@ -13,31 +13,39 @@ class Rover {
      
      //let roverStatus = {};
      let results = [];
+     let roverStatus;
      let completed = {}
      
 
      for (let i = 0; i < messageInput.commands.length; i++) {
-
+      let actionResult = {completed: false};
       if (messageInput.commands[i].commandType === 'MODE_CHANGE' && messageInput.commands[i].value === 'NORMAL') {
-        
          this.mode = messageInput.commands[i].value;
 
       }
       else if (messageInput.commands[i].commandType === 'MOVE' && this.mode === 'NORMAL') { 
-         
          this.position = messageInput.commands[i].value;
 
       }
       else if (messageInput.commands[i].commandType === 'MOVE' && this.mode == 'LOW_POWER') { 
       }
       else if (messageInput.commands[i].commandType === 'STATUS_CHECK') {
-         
+         //roverStatus class?
+         roverStatus = { 
+            mode: this.mode,
+            generatorWatts: this.generatorWatts,
+            position: this.position
+         }
+         actionResult = {
+            completed: true,
+            roverStatus: roverStatus
+         }
       }
-   
+      results.push(actionResult)
      }
      let response = {
       message: messageInput.name,
-      results: [completed]
+      results: results
      };
 
      return response;
