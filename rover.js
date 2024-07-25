@@ -2,7 +2,7 @@ const Message = require('./message.js');
 const Command = require('./command.js');
 
 class Rover {
-   constructor(position) { 
+   constructor(position) {
       this.mode = 'NORMAL';
       this.generatorWatts = 110;
       this.position = position;
@@ -12,7 +12,6 @@ class Rover {
       let results = [];
 
      for (let i = 0; i < messageInput.commands.length; i++) {
-      let actionResult = {completed: false};
       if (messageInput.commands[i].commandType === 'MODE_CHANGE') {
          this.mode = messageInput.commands[i].value;
          let actionResult = {
@@ -50,13 +49,5 @@ class Rover {
      return response;
    }
 }
-
-// TEST COMMANDS: 
-let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
-let message = new Message('Test message with two commands', commands);
-let rover = new Rover(98382);    // Passes 98382 as the rover's position.
-let response = rover.receiveMessage(message);
-
-console.log(response);
 
 module.exports = Rover;
