@@ -13,17 +13,12 @@ describe("Rover class", function() {
   let message = new Message('Test message with two commands', commands);
   let rover = new Rover(98382);    // Passes 98382 as the rover's position.
   let response = rover.receiveMessage(message);
-
   
   // TEST 7
   it("constructor sets position and default values for mode and generatorWatts", function() {
     expect(rover.position).toEqual(98382);
     expect(rover.generatorWatts).toEqual(110);
   });
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> SEE WHAT COMPILER SEES:
-
-  //return console.log(response.results.actionResult)
-
   // TEST 8
   it("response returned by receiveMessage contains the name of the message", function() {
     expect(rover.receiveMessage(message).message).toEqual('Test message with two commands'); 
@@ -41,14 +36,30 @@ describe("Rover class", function() {
   }); 
   // TEST 11
   it("responds correctly to the mode change command", function() {
-  
+    // let command = [new Command('MODE_CHANGE', 'SPOOKEY_TIME')];
+    // let message2 = new Message('Change mode for Halloween', command);
+    // response = rover.receiveMessage(message2);
+
+    // expect(rover.mode).toEqual('SPOOKEY_TIME');
+    expect(rover.mode).toEqual('LOW_POWER')
   });
   // TEST 12
   it("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
-    
+    // TEST COMMANDS:
+    let moveCommand = [new Command('MOVE', 123)]
+    let message3 = new Message('Try to move', moveCommand)
+    let response = rover.receiveMessage(message3);
+    expect(response.results[0].completed).toEqual(false)
   });
   // TEST 13
   it("responds with the position for the move command", function() {
-      
+    // TEST COMMANDS:
+    let rover = new Rover(98382); // STARTING POSITION 
+    let moveCommand = [new Command('CHANGE_MODE', 'NORMAL'), new Command('MOVE', 123)]; //ENDING POSITION
+    let message4 = new Message('Try to move', moveCommand);
+    let update = rover.receiveMessage(message4);
+    update
+    expect(rover.position).toEqual(123);
+
   });
 });

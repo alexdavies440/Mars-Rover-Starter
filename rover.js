@@ -29,7 +29,10 @@ class Rover {
 
       }
       else if (messageInput.commands[i].commandType === 'MOVE' && this.mode == 'LOW_POWER') { 
-         //ALREADY SET TO FALSE
+         actionResult = {
+            completed: false
+         }
+         results.push(actionResult);
       }
       else if (messageInput.commands[i].commandType === 'STATUS_CHECK') {
             actionResult = {
@@ -60,12 +63,19 @@ class Rover {
    }
 }
 
-let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
-let message = new Message('Test message with two commands', commands);
+// let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+// let message = new Message('Test message with two commands', commands);
 let rover = new Rover(98382);    // Passes 98382 as the rover's position.
-let response = rover.receiveMessage(message);
 
 
-console.log(response.results);
+
+
+
+let moveCommand = [new Command('CHANGE_MODE', 'NORMAL'), new Command('MOVE', 123)];
+let message4 = new Message('Try to move', moveCommand);
+rover.receiveMessage(message4);
+let response = rover.receiveMessage(message4);
+
+console.log(rover.position);
 
 module.exports = Rover;
