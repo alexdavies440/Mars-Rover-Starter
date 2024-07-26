@@ -20,6 +20,7 @@ describe("Rover class", function () {
         { completed: true }
       ]
     });
+    expect (response.message).toEqual(message.name);
   });
   it("TEST 9: response returned by receiveMessage includes two results if two commands are sent in the message", function () {
     let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
@@ -27,8 +28,7 @@ describe("Rover class", function () {
     let rover = new Rover(98382);
     let response = rover.receiveMessage(message);
 
-    console.log(response);
-    expect(rover.receiveMessage(message).results.length).toEqual(2);
+    expect(response.results.length).toEqual(2);
   });
   it("TEST 10: responds correctly to the status check command", function () {
     let statusCommand = [new Command('STATUS_CHECK')];
@@ -61,7 +61,6 @@ describe("Rover class", function () {
   });
   it("TEST 12: responds with a false completed value when attempting to move in LOW_POWER mode", function () {
     let rover = new Rover(222);
-    //let moveCommand = [new Command('MOVE', 123)]
     let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MOVE', 123)];
     let message3 = new Message('Try to move', commands)
     let response = rover.receiveMessage(message3);
