@@ -4,19 +4,16 @@ const Command = require('../command.js');
 //       However, do NOT edit the grading tests for any reason and make sure to un-comment out your code to get the autograder to pass.
 
 describe("Command class", function() {
-  // EXAMPLES TO PULL FROM: 
-  let modeCommand = new Command('MODE_CHANGE', 'LOW_POWER');
-  let moveCommand = new Command('MOVE', 12000);
-  // TEST 1
-  it("throws error if command type is NOT passed into constructor as the first parameter", function() {
+    
+  it("TEST 1: throws error if command type is NOT passed into constructor as the first parameter", function() {
     expect( function() { new Command();}).toThrow(new Error("Command type required."));
-  });  
-  // TEST 2     
-  it("constructor sets command type", function() {
+  });       
+  it("TEST 2: constructor sets command type", function() {
+    let modeCommand = new Command('MODE_CHANGE', 'LOW_POWER');
     expect(modeCommand.commandType).toEqual('MODE_CHANGE');
   });
-  // TEST 3
-  it("constructor sets a value passed in as the 2nd argument", function() {
+  it("TEST 3: constructor sets a value passed in as the 2nd argument", function() {
+    let moveCommand = new Command('MOVE', 12000);
     expect(moveCommand.value).toEqual(12000);
   });
   });

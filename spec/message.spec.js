@@ -8,16 +8,14 @@ describe("Message class", function() {
     // EXAMPLES TO PULL FROM:
     let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
     let message = new Message('Test message with two commands', commands);
-    // TEST 4
-    it("Throws error if a name is NOT passed into the constructor as the first parameter", function() {
+
+    it("TEST 4: Throws error if a name is NOT passed into the constructor as the first parameter", function() {
         expect( function() { new Message();}).toThrow(new Error("name required."));
     });
-    // TEST 5
-    it("constructor sets name", function() {
+    it("TEST 5: constructor sets name", function() {
         expect(message.name).toEqual('Test message with two commands');
     });
-    // TEST 6
-    it("contains a commands array passed into the constructor as the 2nd argument", function() {
-        expect(commands).toEqual([new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')]);
+    it("TEST 6: contains a commands array passed into the constructor as the 2nd argument", function() {
+        expect(message.commands).toEqual([new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')]);
     });
 });
