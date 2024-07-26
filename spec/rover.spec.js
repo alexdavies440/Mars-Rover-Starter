@@ -45,16 +45,18 @@ describe("Rover class", function() {
   }); 
   // TEST 11
   it("responds correctly to the mode change command", function() {
-    // let command = [new Command('MODE_CHANGE', 'SPOOKEY_TIME')];
-    // let message2 = new Message('Change mode for Halloween', command);
-    // response = rover.receiveMessage(message2);
-    // expect(rover.mode).toEqual('SPOOKEY_TIME');
-
-    expect(rover.mode).toEqual('LOW_POWER')
+    
+    let modeCommand = [new Command('MODE_CHANGE', 'LOW_POWER')];
+    let message2 = new Message('Change mode to LOW_POWER', modeCommand);
+    rover.receiveMessage(message2);
+    
+    expect(rover.mode).toEqual('LOW_POWER');
+    expect(rover.receiveMessage(message2).message).toEqual('Change mode to LOW_POWER')
   });
   // TEST 12
   it("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
     // TEST COMMANDS:
+
     let moveCommand = [new Command('MOVE', 123)]
     let message3 = new Message('Try to move', moveCommand)
     let response = rover.receiveMessage(message3);
